@@ -54,31 +54,33 @@ class DouyinLive:
                     message.ParseFromString(item.payload)
                     # print(f'\033[1;37;40m[礼物]SEC_UID = {message.user.sec_uid} - {message.user.nickname}\033[m 送出 \033[4;30;44m{message.gift.name}\033[m x {message.comboCount}')
                     # 谁给谁送了什么礼物
-                    print(f'\033[1;37;40m[礼物]SEC_UID = {message.user.sec_uid} - {message.user.nickname}\033[m 送给 \033[1;37;40m{message.toUser.sec_uid} - {message.toUser.nickname}\033[m \033[4;30;44m{message.gift.name}\033[m x {message.comboCount}')
+                    print(f'\033[1;37;40m[礼物] SEC_UID = {message.user.sec_uid} - {message.user.nickname}\033[m 送给 \033[1;37;40m{message.toUser.sec_uid} - {message.toUser.nickname}\033[m \033[4;30;44m{message.gift.name}\033[m x {message.comboCount}')
                 elif item.method == "WebcastChatMessage":
                     message = Live_pb2.ChatMessage()
                     message.ParseFromString(item.payload)
                     # 用户等级
                     # print(message.user.badge_image_list[0])
-                    print(f'\033[1;37;40m[消息]SEC_UID = {message.user.sec_uid} - {message.user.nickname}\033[m : \033[4;30;44m{message.content}\033[m')
+                    print(f'\033[1;37;40m[消息] SEC_UID = {message.user.sec_uid} - {message.user.nickname}\033[m : \033[4;30;44m{message.content}\033[m')
                 elif item.method == "WebcastMemberMessage":
                     message = Live_pb2.MemberMessage()
                     message.ParseFromString(item.payload)
-                    print(f'\033[1;37;40m[进入]SEC_UID = {message.user.sec_uid} - {message.user.nickname}\033[m 进入直播间')
+                    print(f'\033[1;37;40m[进入] SEC_UID = {message.user.sec_uid} - {message.user.nickname}\033[m 进入直播间')
                 elif item.method == "WebcastLikeMessage":
                     message = Live_pb2.LikeMessage()
                     message.ParseFromString(item.payload)
-                    print(f'\033[1;37;40m[点赞]SEC_UID = {message.user.sec_uid} - {message.user.nickname}\033[m 点赞了 {message.count} 次')
-                    print(f'\033[1;37;40m[点赞]点赞总数 = {message.total}\033[m')
+                    print(f'\033[1;37;40m[点赞] SEC_UID = {message.user.sec_uid} - {message.user.nickname}\033[m 点赞了 {message.count} 次')
+                    print(f'\033[1;37;40m[点赞] 点赞总数 = {message.total}\033[m')
                 elif item.method == "WebcastSocialMessage":
                     message = Live_pb2.SocialMessage()
                     message.ParseFromString(item.payload)
                     if message.action == 1:
-                        print(f'\033[1;37;40m[关注]SEC_UID = {message.user.sec_uid} - {message.user.nickname}\033[m 关注主播')
+                        print(f'\033[1;37;40m[关注] SEC_UID = {message.user.sec_uid} - {message.user.nickname}\033[m 关注主播')
                 elif item.method == "WebcastRoomStatsMessage":
                     message = Live_pb2.RoomStatsMessage()
                     message.ParseFromString(item.payload)
                     print(f'\033[1;37;40m[房间信息] {message.displayLong}')
+                else:
+                    print("[未处理消息] " +  item.method)
 
             # s = zlib.decompress(decode_str).decode()
         except Exception as e:
@@ -168,6 +170,6 @@ class DouyinLive:
 
 if __name__ == '__main__':
     common_util.load_env()
-    live_id = "571821134948"
+    live_id = "69970128546"
     live = DouyinLive(live_id, common_util.dy_live_auth)
     live.start_ws()

@@ -10,3 +10,4 @@ requests
 argparse
 websockets
 protobuf3_to_dict
+websocket-client
